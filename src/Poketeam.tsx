@@ -38,17 +38,21 @@ const Poketeam = () => {
     const handleInputChange = (e: any) => {
         setName(e.target.value);
     };
-    const randomPokemon = (num: number): string[] => {
+    const randomPokemon = (
+        num: number,
+        start: number,
+        end: number
+    ): string[] => {
         const numArr: string[] = [];
         for (let i = 0; i < num; i++) {
-            const num = getRandomArbitrary(1, 152).toString();
-            numArr.push(num);
+            const int = getRandomArbitrary(start, end).toString();
+            numArr.push(int);
         }
         return numArr;
     };
 
     const searchPokemon = async () => {
-        const randomPokemonNum: string = randomPokemon(1)[1];
+        const randomPokemonNum: string = randomPokemon(1, 1, 1026)[0];
         console.log(randomPokemon);
         try {
             const response = await axios.get(`/api/getPokemon`, {
@@ -70,7 +74,7 @@ const Poketeam = () => {
     };
 
     const searchTeam = async () => {
-        const teamArr = randomPokemon(6);
+        const teamArr = randomPokemon(6, 1, 152);
         try {
             const responses = await Promise.all(
                 teamArr.map((id) =>
@@ -97,15 +101,8 @@ const Poketeam = () => {
                 </h2>
                 <div className="flex flex-col justify-center">
                     <div className="flex justify-center p-4 mt-4 items-center">
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={handleInputChange}
-                            placeholder="Enter Pokemon Name or Id"
-                            className="p-4 m-4"
-                        />
                         <button
-                            className="btn flex"
+                            className="btn flex m-4"
                             onClick={async () => {
                                 const data = await searchPokemon();
                                 setPokemon(data);
@@ -113,17 +110,25 @@ const Poketeam = () => {
                         >
                             Search
                         </button>
-                        <button className="btn flex" onClick={searchTeam}>
+                        <button className="btn flex m-4" onClick={searchTeam}>
                             Create team
                         </button>
                     </div>
                     <br />
                     {error && <p>Error: {error}</p>}
                     {pokemon && (
-                        <div className="flex flex-row justify-center items-center">
-                            <img src={pokemon.sprites.front_default} alt="" />
-                            <img src={pokemon.sprites.front_shiny} alt="" />
-                        </div>
+                        <>
+                            <div className="flex justify-center">
+                                {pokemon.name}
+                            </div>
+                            <div className="flex flex-row justify-center items-center">
+                                <img
+                                    src={pokemon.sprites.front_default}
+                                    alt=""
+                                />
+                                <img src={pokemon.sprites.front_shiny} alt="" />
+                            </div>
+                        </>
                     )}
                     <div className="flex justify-center flex-row items-center">
                         {pokeTeam.map((pokemon, index) => (

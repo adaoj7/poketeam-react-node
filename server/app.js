@@ -12,14 +12,14 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.get(`/api/getPokemon`, async (req, res) => {
-    console.log(req.query.name.toLowerCase());
+    console.log(req.query.name);
     const lowerCaseName = req.query.name.toLowerCase();
     // console.log(res);
     try {
         const data = await axios.get(
             `https://pokeapi.co/api/v2/pokemon/${lowerCaseName}`
         );
-        console.log(data.data);
+        // console.log(data.data);
         res.status(200).send(data.data);
     } catch (err) {
         console.log(err);
