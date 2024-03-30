@@ -35,31 +35,9 @@ const Poketeam = () => {
     //     response();
     // }, []);
 
-    const handleInputChange = (e: any) => {
-        setName(e.target.value);
-    };
-    const randomPokemon = (
-        num: number,
-        start: number,
-        end: number
-    ): string[] => {
-        const numArr: string[] = [];
-        for (let i = 0; i < num; i++) {
-            const int = getRandomArbitrary(start, end).toString();
-            numArr.push(int);
-        }
-        return numArr;
-    };
-
     const searchPokemon = async () => {
-        const randomPokemonNum: string = randomPokemon(1, 1, 1026)[0];
-        console.log(randomPokemon);
         try {
-            const response = await axios.get(`/api/getPokemon`, {
-                params: {
-                    name: randomPokemonNum,
-                },
-            });
+            const response = await axios.get(`/api/getPokemon`);
             console.log(response);
             if (!response) {
                 throw new Error(`Failed to fetch: ${response}`);
@@ -73,20 +51,21 @@ const Poketeam = () => {
         }
     };
 
-    const searchTeam = async () => {
-        const teamArr = randomPokemon(6, 1, 152);
+    const searchGenOne = async () => {
         try {
-            const responses = await Promise.all(
-                teamArr.map((id) =>
-                    axios.get(`/api/getPokemon`, {
-                        params: {
-                            name: id,
-                        },
-                    })
-                )
-            );
-            const data = responses.map((response) => response.data);
-            setPokeTeam(data);
+            const data = await axios.get("api/getTeamGenOne");
+            console.log(data);
+            setPokeTeam(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const searchGenTwo = async () => {
+        try {
+            const data = await axios.get("api/getTeamGenTwo");
+            console.log(data);
+            setPokeTeam(data.data);
         } catch (err) {
             console.log(err);
         }
@@ -110,8 +89,11 @@ const Poketeam = () => {
                         >
                             Search
                         </button>
-                        <button className="btn flex m-4" onClick={searchTeam}>
-                            Create team
+                        <button className="btn flex m-4" onClick={searchGenOne}>
+                            Create team gen1
+                        </button>
+                        <button className="btn flex m-4" onClick={searchGenTwo}>
+                            Create team gen2
                         </button>
                     </div>
                     <br />
