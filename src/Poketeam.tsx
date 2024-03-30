@@ -13,27 +13,9 @@ const Poketeam = () => {
         };
     }
 
-    // const [searchCount, setSearchCount] = useState(0);
-    const [name, setName] = useState("");
     const [pokemon, setPokemon] = useState<PokemonData | null>(null);
     const [pokeTeam, setPokeTeam] = useState<PokemonData[]>([]);
     const [error, setError] = useState("");
-
-    const getRandomArbitrary = (min: number, max: number) => {
-        return Math.floor(Math.random() * (max - min) + min);
-    };
-
-    // useEffect(() => {
-    //     const response: any = async () => {
-    //         try {
-    //             const response = await axios.get(`/api/getCount`);
-    //             setSearchCount(response.data);
-    //         } catch (err: any) {
-    //             console.log(err);
-    //         }
-    //     };
-    //     response();
-    // }, []);
 
     const searchPokemon = async () => {
         try {
