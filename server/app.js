@@ -68,6 +68,21 @@ app.get("/api/getTeamGenTwo", async (req, res) => {
         res.sendStatus(400);
     }
 });
+app.get("/api/getTeamGenThree", async (req, res) => {
+    const teamArr = randomPokemon(6, 252, 387);
+    try {
+        const responses = await Promise.all(
+            teamArr.map((id) =>
+                axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            )
+        );
+        const data = responses.map((response) => response.data);
+        res.send(data).status(200);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+    }
+});
 
 ViteExpress.listen(app, PORT, () =>
     console.log(`what is the answer? http://localhost:${PORT}`)

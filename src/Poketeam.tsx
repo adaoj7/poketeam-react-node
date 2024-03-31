@@ -53,6 +53,16 @@ const Poketeam = () => {
         }
     };
 
+    const searchGenThree = async () => {
+        try {
+            const data = await axios.get("api/getTeamGenThree");
+            console.log(data);
+            setPokeTeam(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <>
             <div className="flex justify-center flex-col mt-40">
@@ -76,6 +86,12 @@ const Poketeam = () => {
                         </button>
                         <button className="btn flex m-4" onClick={searchGenTwo}>
                             Create team gen2
+                        </button>
+                        <button
+                            className="btn flex m-4"
+                            onClick={searchGenThree}
+                        >
+                            Create team gen3
                         </button>
                     </div>
                     <br />
