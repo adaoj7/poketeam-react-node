@@ -112,6 +112,7 @@ const Poketeam = () => {
                         </>
                     )}
                     <div className="flex justify-center flex-row items-center">
+                        {/* Here I would like to create a button that allows you to click and send the pokemon selected to view more info */}
                         {pokeTeam.map((pokemon, index) => (
                             <>
                                 {/* <div key={index} className="flex">
