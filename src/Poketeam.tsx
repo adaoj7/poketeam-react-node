@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import axios from "axios";
+import Pokemon from "./Pokemon";
 
 const Poketeam = () => {
     // const [count, setCount] = useState(0);
@@ -35,9 +36,9 @@ const Poketeam = () => {
 
     const searchGenOne = async () => {
         try {
-            const data = await axios.get("api/getTeamGenOne");
-            console.log(data);
-            setPokeTeam(data.data);
+            const response = await axios.get("api/getTeamGenOne");
+            console.log(response);
+            setPokeTeam(response.data);
         } catch (err) {
             console.log(err);
         }
@@ -45,9 +46,9 @@ const Poketeam = () => {
 
     const searchGenTwo = async () => {
         try {
-            const data = await axios.get("api/getTeamGenTwo");
-            console.log(data);
-            setPokeTeam(data.data);
+            const response = await axios.get("api/getTeamGenTwo");
+            console.log(response);
+            setPokeTeam(response.data);
         } catch (err) {
             console.log(err);
         }
@@ -55,9 +56,9 @@ const Poketeam = () => {
 
     const searchGenThree = async () => {
         try {
-            const data = await axios.get("api/getTeamGenThree");
-            console.log(data);
-            setPokeTeam(data.data);
+            const response = await axios.get("api/getTeamGenThree");
+            console.log(response);
+            setPokeTeam(response.data);
         } catch (err) {
             console.log(err);
         }
@@ -112,13 +113,16 @@ const Poketeam = () => {
                     )}
                     <div className="flex justify-center flex-row items-center">
                         {pokeTeam.map((pokemon, index) => (
-                            <div key={index} className="flex">
-                                <p className="flex items-center">
-                                    {pokemon.name}
-                                </p>
-                                {/* <img src={pokemon.sprites.front_default} /> */}
-                                <img src={pokemon.sprites.front_shiny} />
-                            </div>
+                            <>
+                                {/* <div key={index} className="flex">
+                                    <p className="flex items-center">
+                                        {pokemon.name}
+                                    </p>
+                                    <img src={pokemon.sprites.front_default} />
+                                    <img src={pokemon.sprites.front_shiny} />
+                                </div> */}
+                                <Pokemon pokemon={pokemon} />
+                            </>
                         ))}
                     </div>
                 </div>
