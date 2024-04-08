@@ -20,7 +20,7 @@ const Poketeam = () => {
 
     const searchPokemon = async () => {
         try {
-            const response = await axios.get(`/api/getPokemon`);
+            const response = await axios.get(`/api/randomPokemon`);
             console.log(response);
             if (!response) {
                 throw new Error(`Failed to fetch: ${response}`);

@@ -24,13 +24,25 @@ const randomPokemon = (num, start, end) => {
     return numArr;
 };
 
-app.get(`/api/getPokemon`, async (req, res) => {
+app.get(`/api/randomPokemon`, async (req, res) => {
     const oneRandomPokemon = randomPokemon(1, 1, 1027)[0];
     try {
         const data = await axios.get(
             `https://pokeapi.co/api/v2/pokemon/${oneRandomPokemon}`
         );
         // console.log(data.data);
+        res.status(200).send(data.data);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(400);
+    }
+});
+app.get(`/api/getPokemon`, async (req, res) => {
+    const pokemonSearch = req.query.name;
+    try {
+        const data = await axios.get(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonSearch}`
+        );
         res.status(200).send(data.data);
     } catch (err) {
         console.log(err);
@@ -47,6 +59,7 @@ app.get("/api/getTeamGenOne", async (req, res) => {
             )
         );
         const data = responses.map((response) => response.data);
+        console.log(data);
         res.send(data).status(200);
     } catch (err) {
         console.log(err);
