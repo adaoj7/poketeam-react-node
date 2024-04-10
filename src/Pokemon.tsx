@@ -16,6 +16,7 @@ const Pokemon = ({ pokemon }: any) => {
             });
             console.log(data.data);
             setPokemonData(data.data);
+            setInput("");
         } catch (err) {
             console.log(err);
         }

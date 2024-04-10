@@ -3,7 +3,7 @@ import axios from "axios";
 import Pokemon from "./Pokemon";
 
 const Poketeam = () => {
-    // const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);
 
     interface PokemonData {
         name: string;
@@ -38,13 +38,15 @@ const Poketeam = () => {
         try {
             const response = await axios.get("api/getTeamGenOne");
             console.log(response);
+            // setCount(count + 1);
             setPokeTeam(response.data);
         } catch (err) {
             console.log(err);
         }
     };
 
-    const searchGenTwo = async () => {
+    const searchGenTwo = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             const response = await axios.get("api/getTeamGenTwo");
             console.log(response);
@@ -85,9 +87,11 @@ const Poketeam = () => {
                         <button className="btn flex m-4" onClick={searchGenOne}>
                             Create team gen1
                         </button>
-                        <button className="btn flex m-4" onClick={searchGenTwo}>
-                            Create team gen2
-                        </button>
+                        <form onSubmit={searchGenTwo}>
+                            <button className="btn flex m-4">
+                                Create team gen2
+                            </button>
+                        </form>
                         <button
                             className="btn flex m-4"
                             onClick={searchGenThree}
@@ -122,7 +126,7 @@ const Poketeam = () => {
                                     <img src={pokemon.sprites.front_default} />
                                     <img src={pokemon.sprites.front_shiny} />
                                 </div> */}
-                                <Pokemon pokemon={pokemon} />
+                                <Pokemon pokemon={pokemon} count={count} />
                             </>
                         ))}
                     </div>
